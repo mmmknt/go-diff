@@ -259,8 +259,10 @@ func (dmp *DiffMatchPatch) DiffBisect(text1, text2 string, deadline time.Time) [
 // diffBisect finds the 'middle snake' of a diff, splits the problem in two and returns the recursively constructed diff.
 // See Myers's 1986 paper: An O(ND) Difference Algorithm and Its Variations.
 func (dmp *DiffMatchPatch) diffBisect(runes1, runes2 []rune, deadline time.Time) []Diff {
+	fmt.Printf("diffBisect args. runes1: %v, runes2: %v, deadline: %v", runes1, runes2, deadline)
 	// Cache the text lengths to prevent multiple calls.
 	runes1Len, runes2Len := len(runes1), len(runes2)
+	fmt.Printf("runes1Len: %d, runes2Len: %d", runes1Len, runes2Len)
 
 	maxD := (runes1Len + runes2Len + 1) / 2
 	vOffset := maxD
@@ -283,14 +285,18 @@ func (dmp *DiffMatchPatch) diffBisect(runes1, runes2 []rune, deadline time.Time)
 	k1end := 0
 	k2start := 0
 	k2end := 0
+	fmt.Printf("start first loop maxD: %d", maxD)
 	for d := 0; d < maxD; d++ {
+		//fmt.Printf("first loop: %d", d)
 		// Bail out if deadline is reached.
 		if !deadline.IsZero() && d%16 == 0 && time.Now().After(deadline) {
 			break
 		}
 
 		// Walk the front path one step.
+		//fmt.Printf("start second loop. initial: %d, end: %d", -d + k1start, d-k1end)
 		for k1 := -d + k1start; k1 <= d-k1end; k1 += 2 {
+			//fmt.Printf("second loop: %d", k1)
 			k1Offset := vOffset + k1
 			var x1 int
 
