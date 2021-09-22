@@ -259,7 +259,7 @@ func (dmp *DiffMatchPatch) DiffBisect(text1, text2 string, deadline time.Time) [
 // diffBisect finds the 'middle snake' of a diff, splits the problem in two and returns the recursively constructed diff.
 // See Myers's 1986 paper: An O(ND) Difference Algorithm and Its Variations.
 func (dmp *DiffMatchPatch) diffBisect(runes1, runes2 []rune, deadline time.Time) []Diff {
-	fmt.Printf("diffBisect args. runes1: %s, runes2: %s, deadline: %v", string(runes1), string(runes2), deadline)
+	//fmt.Printf("diffBisect args. runes1: %s, runes2: %s, deadline: %v", string(runes1), string(runes2), deadline)
 	// Cache the text lengths to prevent multiple calls.
 	runes1Len, runes2Len := len(runes1), len(runes2)
 	fmt.Printf("runes1Len: %d, runes2Len: %d", runes1Len, runes2Len)
